@@ -1,0 +1,6 @@
+{
+  "input_dim": 1024,
+  "exclude": [
+    "mert"
+  ]
+}

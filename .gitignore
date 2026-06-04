@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+.pytest_cache/
+.mypy_cache/
+
+# Environment
+.venv/
+venv/
+.env
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Data / heavy artifacts (never commit)
+data/*
+!data/*.py
+!data/*.md
+!data/.gitkeep
+# Allow README.md (and other small docs) in any data/ subdirectory.
+!data/**/README.md
+# Split definitions are small (~500KB JSON + ~300KB TXT) and required for
+# reproducing every entry in docs/reproducing.md.
+!data/splits/
+data/splits/*
+!data/splits/*.json
+!data/splits/*.txt
+!data/splits/.gitkeep
+# Anchor-calibration labels (small CSV + JSON, <100KB total) are required
+# for reproducing the K=10 anchor (57.6) vs K=250 retrain (57.0) result.
+!data/labels/
+data/labels/*
+!data/labels/*.csv
+!data/labels/*.json
+!data/labels/*.md
+!data/labels/.gitkeep
+# Paper-result JSONs (calibration bins, OOD scaling, anchor scans) back
+# Tables 8/13/14 and Figures 4/5; each is <5 KB and lets reviewers
+# regenerate the figures without rerunning the full eval.
+results/*
+!results/*.csv
+!results/*.json
+!results/.gitkeep
+logs/
+*.wav
+!docs/assets/*.wav
+*.flac
+*.mp3
+*.npy
+*.npz
+
+# Released TuneJury head checkpoints (~11 MB each) ship in-repo.
+# The much larger LAION-CLAP-Music upstream checkpoint (~2.2 GB) is
+# downloaded automatically by the Scorer on first use.
+checkpoints/music_audioset_epoch_*.pt
+checkpoints/*.bin
+checkpoints/*.safetensors
+
+# Caches
+.cache/
+*.cache
+figures/texput.log

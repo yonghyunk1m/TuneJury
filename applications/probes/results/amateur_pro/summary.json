@@ -1,0 +1,46 @@
+{
+  "n_tracks": 106401,
+  "skipped": 0,
+  "spearman": 0.2851992270095007,
+  "spearman_p": 0.0,
+  "pearson": 0.28747819307072087,
+  "pearson_p": 0.0,
+  "buckets": [
+    {
+      "bucket": "P  0-P 10",
+      "n": 10641,
+      "median_listens": 79,
+      "mean_reward": -1.4131622652442437
+    },
+    {
+      "bucket": "P 10-P 25",
+      "n": 16077,
+      "median_listens": 204,
+      "mean_reward": -1.0060665826701611
+    },
+    {
+      "bucket": "P 25-P 50",
+      "n": 26657,
+      "median_listens": 482,
+      "mean_reward": -0.7105658666517608
+    },
+    {
+      "bucket": "P 50-P 75",
+      "n": 26642,
+      "median_listens": 1212,
+      "mean_reward": -0.4341015255044555
+    },
+    {
+      "bucket": "P 75-P 90",
+      "n": 15968,
+      "median_listens": 2949,
+      "mean_reward": -0.17216841940465244
+    },
+    {
+      "bucket": "P 90-P100",
+      "n": 10641,
+      "median_listens": 8257,
+      "mean_reward": 0.08353524349073939
+    }
+  ]
+}

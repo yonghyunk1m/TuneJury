@@ -1,0 +1,16 @@
+{
+  "sao_baseline": 1.070154,
+  "sao_ditto": 1.570022,
+  "tangoflux_baseline": 4.262624,
+  "tangoflux_ditto": 2.048230,
+  "n_sao_b": 30,
+  "n_sao_d": 30,
+  "n_tf_b": 100,
+  "n_tf_d": 100,
+  "n_sdd": 706,
+  "seed": 42,
+  "num_buckets": "auto",
+  "delta_sao": 0.499868,
+  "delta_tangoflux": -2.214394,
+  "_note": "MAD = -ln(MAUVE) per Huang et al. 2025; lower = closer to SDD-706. mauve.compute_mauve with num_buckets='auto', seed=42. SAO uses canonical sao_small_n30_lr05_paper run; TangoFlux uses ditto_tangoflux_100 (config seed_base=42)."
+}

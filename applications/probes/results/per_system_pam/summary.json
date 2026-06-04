@@ -1,0 +1,106 @@
+{
+  "checkpoint": "$REPO_ROOT/checkpoints/tunejury.pt",
+  "n_systems": 5,
+  "n_clips_total": 500,
+  "per_system": [
+    {
+      "system": "audioldm2",
+      "n_clips": 100,
+      "pam_mean": 2.1646111111111113,
+      "pam_std": 0.40403436551674476,
+      "tj_ta_mean": -0.5815847780369222,
+      "tj_ta_std": 0.49948206507835097,
+      "tj_a_mean": -1.3431673392653465,
+      "tj_a_std": 0.6635032476912258
+    },
+    {
+      "system": "musicgen_large",
+      "n_clips": 100,
+      "pam_mean": 3.081365079365079,
+      "pam_std": 0.6239620807841513,
+      "tj_ta_mean": 0.17333266638219358,
+      "tj_ta_std": 0.5468798475429838,
+      "tj_a_mean": -0.16437034212052823,
+      "tj_a_std": 0.8464852086269842
+    },
+    {
+      "system": "musicgen_melody",
+      "n_clips": 100,
+      "pam_mean": 2.7912222222222223,
+      "pam_std": 0.709734096443394,
+      "tj_ta_mean": -0.24247790001332759,
+      "tj_ta_std": 0.8240058739330549,
+      "tj_a_mean": -0.6559220610745251,
+      "tj_a_std": 1.082963736147537
+    },
+    {
+      "system": "musicldm",
+      "n_clips": 100,
+      "pam_mean": 2.0588055555555553,
+      "pam_std": 0.4606559090170728,
+      "tj_ta_mean": -0.6282105327397585,
+      "tj_ta_std": 0.6159131724673677,
+      "tj_a_mean": -1.476273247115314,
+      "tj_a_std": 0.7523992993813765
+    },
+    {
+      "system": "real",
+      "n_clips": 100,
+      "pam_mean": 3.1851944444444444,
+      "pam_std": 0.7045211199727474,
+      "tj_ta_mean": -0.2605462998151779,
+      "tj_ta_std": 0.6722287732194235,
+      "tj_a_mean": -0.7051236813887953,
+      "tj_a_std": 0.9790426379721033
+    }
+  ],
+  "srcc_all_n5": {
+    "tj_ta_vs_pam": 0.7,
+    "tj_a_vs_pam": 0.7
+  },
+  "srcc_ai_only_n4": {
+    "tj_ta_vs_pam": 1.0,
+    "tj_a_vs_pam": 1.0
+  },
+  "rankings": {
+    "pam_n5": [
+      "real",
+      "musicgen_large",
+      "musicgen_melody",
+      "audioldm2",
+      "musicldm"
+    ],
+    "tj_ta_n5": [
+      "musicgen_large",
+      "musicgen_melody",
+      "real",
+      "audioldm2",
+      "musicldm"
+    ],
+    "tj_a_n5": [
+      "musicgen_large",
+      "musicgen_melody",
+      "real",
+      "audioldm2",
+      "musicldm"
+    ],
+    "pam_ai_n4": [
+      "musicgen_large",
+      "musicgen_melody",
+      "audioldm2",
+      "musicldm"
+    ],
+    "tj_ta_ai_n4": [
+      "musicgen_large",
+      "musicgen_melody",
+      "audioldm2",
+      "musicldm"
+    ],
+    "tj_a_ai_n4": [
+      "musicgen_large",
+      "musicgen_melody",
+      "audioldm2",
+      "musicldm"
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "baseline": 1.7578447863518194,
+  "lr_1em6_r1": 2.0512773837312865,
+  "lr_5em6": 2.041346797109465,
+  "lr_1em5": 2.426891509708212,
+  "r2": 2.5944822281260214,
+  "r3": 2.736162174441631,
+  "delta": {
+    "baseline": 0.0,
+    "lr_1em6_r1": 0.29343259737946714,
+    "lr_5em6": 0.2835020107576456,
+    "lr_1em5": 0.6690467233563926,
+    "r2": 0.836637441774202,
+    "r3": 0.9783173880898117
+  },
+  "_note": "Values are MAD = -ln(MAUVE) per Huang et al. 2025; lower = closer to SDD-706.",
+  "_protocol": "mauve.compute_mauve(num_buckets='auto', seed=42, featurize_model_name=None) on 1024-d MERT-v1-330M time-mean embeddings. num_buckets='auto' resolves to 10 for n=100, so equivalent to num_buckets=10 explicitly.",
+  "seed": 42,
+  "num_buckets": "auto"
+}

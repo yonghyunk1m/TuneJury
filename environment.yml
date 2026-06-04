@@ -1,0 +1,34 @@
+name: tunejury
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - jupyter
+  - pip:
+      # Pinned to the exact versions used to produce the released checkpoint
+      # and all paper anchor-calibration / reliability / OOD-scaling numbers (audit 2026-05-26).
+      # Installing everything via pip avoids the conda-pytorch vs pip-torch
+      # ABI mismatch we hit with mixed installs (where conda-installed
+      # torchaudio.so was built against torch 2.1 but pip transitive deps
+      # silently upgraded torch).
+      # NOTE: paper numbers were computed on torch 2.4.0 / transformers 4.44.0;
+      # this newer pin runs everything but shifts CLAP cosines ~0.02 and reward
+      # means ~0.05 (see docs/reproducing.md §0.6 "Numeric reproducibility").
+      - torch==2.7.1
+      - torchaudio==2.7.1
+      - numpy==1.23.5
+      - scipy==1.13.1
+      - pandas==2.0.2
+      - scikit-learn==1.6.1
+      - matplotlib==3.9.4
+      - seaborn
+      - tqdm
+      - tabulate
+      - librosa==0.10.2.post1
+      - soundfile==0.13.1
+      - transformers==4.57.6
+      - huggingface_hub
+      - laion_clap==1.1.7
+      - frechet-audio-distance

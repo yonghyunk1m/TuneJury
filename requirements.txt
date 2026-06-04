@@ -1,0 +1,33 @@
+torch>=2.0,<2.8
+torchaudio>=2.0,<2.8  # torchaudio>=2.8 routes load() through torchcodec; pin to the environment.yml-verified 2.7.x
+
+numpy>=1.21
+pandas>=1.3
+scikit-learn
+scipy
+tqdm
+tabulate
+
+librosa>=0.9
+soundfile
+
+transformers>=4.30
+huggingface_hub
+laion_clap
+
+# Figures + evaluation
+matplotlib
+seaborn
+frechet-audio-distance
+
+# Backbone-specific deps (Mode 1/2/3): each backbone has its own conda env
+# per applications/mode*/README.md. Do NOT install these into the main
+# tunejury env — they pin incompatible torch/transformers versions.
+#   * audiocraft        — MusicGen-medium/large  (env: musicgen)
+#   * diffusers         — AudioLDM2-music        (env: audioldm2)
+#   * stable_audio_tools — SAO-small             (env: sao)
+#   * acestep           — ACE-Step v1.5 Turbo    (env: acestep)
+#   * tangoflux         — TangoFlux              (env: tangoflux)
+
+# For reproducible end-to-end (verified producing the released checkpoint
+# and all paper headline numbers), use the pinned environment.yml instead.

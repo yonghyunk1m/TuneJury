@@ -1,0 +1,7 @@
+{
+  "input_dim": 1024,
+  "exclude": [
+    "clap_audio",
+    "text"
+  ]
+}

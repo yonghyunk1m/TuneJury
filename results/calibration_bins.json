@@ -1,0 +1,99 @@
+{
+  "overall": {
+    "n_total": 2035,
+    "accuracy_overall": 0.7085995085995086,
+    "expected_calibration_error": 0.03385258338961027,
+    "bins": [
+      {
+        "bin": 0,
+        "margin_lo": 0.00046825408935546875,
+        "margin_hi": 0.1320393681526184,
+        "n": 203,
+        "mean_abs_margin": 0.0677483081817627,
+        "mean_confidence": 0.5169245004653931,
+        "empirical_winrate": 0.4630541871921182
+      },
+      {
+        "bin": 1,
+        "margin_lo": 0.13360583782196045,
+        "margin_hi": 0.25582748651504517,
+        "n": 203,
+        "mean_abs_margin": 0.1990111768245697,
+        "mean_confidence": 0.5495730042457581,
+        "empirical_winrate": 0.5665024630541872
+      },
+      {
+        "bin": 2,
+        "margin_lo": 0.25589412450790405,
+        "margin_hi": 0.39365625381469727,
+        "n": 203,
+        "mean_abs_margin": 0.3245089054107666,
+        "mean_confidence": 0.5803870558738708,
+        "empirical_winrate": 0.6600985221674877
+      },
+      {
+        "bin": 3,
+        "margin_lo": 0.39677923917770386,
+        "margin_hi": 0.557180643081665,
+        "n": 203,
+        "mean_abs_margin": 0.4771832227706909,
+        "mean_confidence": 0.6170218586921692,
+        "empirical_winrate": 0.6551724137931034
+      },
+      {
+        "bin": 4,
+        "margin_lo": 0.5584604144096375,
+        "margin_hi": 0.724353551864624,
+        "n": 203,
+        "mean_abs_margin": 0.6409664154052734,
+        "mean_confidence": 0.6548875570297241,
+        "empirical_winrate": 0.6403940886699507
+      },
+      {
+        "bin": 5,
+        "margin_lo": 0.7255311012268066,
+        "margin_hi": 0.94569993019104,
+        "n": 203,
+        "mean_abs_margin": 0.8334720134735107,
+        "mean_confidence": 0.6969269514083862,
+        "empirical_winrate": 0.7142857142857143
+      },
+      {
+        "bin": 6,
+        "margin_lo": 0.9459432363510132,
+        "margin_hi": 1.2211356163024902,
+        "n": 203,
+        "mean_abs_margin": 1.0786311626434326,
+        "mean_confidence": 0.7459259629249573,
+        "empirical_winrate": 0.7733990147783252
+      },
+      {
+        "bin": 7,
+        "margin_lo": 1.22332763671875,
+        "margin_hi": 1.6641970872879028,
+        "n": 203,
+        "mean_abs_margin": 1.4191710948944092,
+        "mean_confidence": 0.8043869733810425,
+        "empirical_winrate": 0.8226600985221675
+      },
+      {
+        "bin": 8,
+        "margin_lo": 1.6655964851379395,
+        "margin_hi": 2.6025450229644775,
+        "n": 203,
+        "mean_abs_margin": 2.0485007762908936,
+        "mean_confidence": 0.8829781413078308,
+        "empirical_winrate": 0.812807881773399
+      },
+      {
+        "bin": 9,
+        "margin_lo": 2.6410112380981445,
+        "margin_hi": 9.997817993164062,
+        "n": 208,
+        "mean_abs_margin": 4.315334796905518,
+        "mean_confidence": 0.9740126132965088,
+        "empirical_winrate": 0.9711538461538461
+      }
+    ]
+  }
+}

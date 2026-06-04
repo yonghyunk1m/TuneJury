@@ -1,0 +1,242 @@
+[
+  {
+    "prompt_id": 0,
+    "baseline_reward": 0.6534314751625061,
+    "ditto_reward": 0.6895231008529663,
+    "baseline_reward_diff": 0.13122797012329102,
+    "ditto_reward_diff": -0.12765279412269592,
+    "improved": 1
+  },
+  {
+    "prompt_id": 1,
+    "baseline_reward": -1.2770031690597534,
+    "ditto_reward": -0.8069164156913757,
+    "baseline_reward_diff": -1.1621277332305908,
+    "ditto_reward_diff": -0.6561985611915588,
+    "improved": 1
+  },
+  {
+    "prompt_id": 2,
+    "baseline_reward": -0.4519336521625519,
+    "ditto_reward": -0.5247641801834106,
+    "baseline_reward_diff": -0.949317991733551,
+    "ditto_reward_diff": -0.45030099153518677,
+    "improved": 0
+  },
+  {
+    "prompt_id": 3,
+    "baseline_reward": 0.3869483768939972,
+    "ditto_reward": -0.17988595366477966,
+    "baseline_reward_diff": 0.15245908498764038,
+    "ditto_reward_diff": 0.10878873616456985,
+    "improved": 0
+  },
+  {
+    "prompt_id": 4,
+    "baseline_reward": 1.2030380964279175,
+    "ditto_reward": 1.4722604751586914,
+    "baseline_reward_diff": 0.7522605061531067,
+    "ditto_reward_diff": 1.0501824617385864,
+    "improved": 1
+  },
+  {
+    "prompt_id": 5,
+    "baseline_reward": 0.035338371992111206,
+    "ditto_reward": -0.08398228883743286,
+    "baseline_reward_diff": -0.28541800379753113,
+    "ditto_reward_diff": -0.1869916319847107,
+    "improved": 0
+  },
+  {
+    "prompt_id": 6,
+    "baseline_reward": -0.13142696022987366,
+    "ditto_reward": -0.18130430579185486,
+    "baseline_reward_diff": -0.07947518676519394,
+    "ditto_reward_diff": -0.15186980366706848,
+    "improved": 0
+  },
+  {
+    "prompt_id": 7,
+    "baseline_reward": -0.4161053001880646,
+    "ditto_reward": 0.589445173740387,
+    "baseline_reward_diff": -0.5631917119026184,
+    "ditto_reward_diff": 0.2487582564353943,
+    "improved": 1
+  },
+  {
+    "prompt_id": 8,
+    "baseline_reward": 0.6753591895103455,
+    "ditto_reward": 0.19584020972251892,
+    "baseline_reward_diff": 0.5729028582572937,
+    "ditto_reward_diff": -0.03510565310716629,
+    "improved": 0
+  },
+  {
+    "prompt_id": 9,
+    "baseline_reward": 0.015805065631866455,
+    "ditto_reward": 1.1642863750457764,
+    "baseline_reward_diff": -0.19534188508987427,
+    "ditto_reward_diff": 1.0069689750671387,
+    "improved": 1
+  },
+  {
+    "prompt_id": 10,
+    "baseline_reward": 0.5115503072738647,
+    "ditto_reward": 0.43642452359199524,
+    "baseline_reward_diff": 0.3615375757217407,
+    "ditto_reward_diff": 0.4930935800075531,
+    "improved": 0
+  },
+  {
+    "prompt_id": 11,
+    "baseline_reward": -0.16624251008033752,
+    "ditto_reward": 0.28287431597709656,
+    "baseline_reward_diff": -0.0022147782146930695,
+    "ditto_reward_diff": 0.608248770236969,
+    "improved": 1
+  },
+  {
+    "prompt_id": 12,
+    "baseline_reward": 0.3665211498737335,
+    "ditto_reward": 0.6073221564292908,
+    "baseline_reward_diff": 0.27982720732688904,
+    "ditto_reward_diff": 0.47831499576568604,
+    "improved": 1
+  },
+  {
+    "prompt_id": 13,
+    "baseline_reward": 0.16003838181495667,
+    "ditto_reward": 0.8181121349334717,
+    "baseline_reward_diff": -0.18250131607055664,
+    "ditto_reward_diff": 0.47363007068634033,
+    "improved": 1
+  },
+  {
+    "prompt_id": 14,
+    "baseline_reward": 0.24810639023780823,
+    "ditto_reward": 0.10646773874759674,
+    "baseline_reward_diff": -0.3607045114040375,
+    "ditto_reward_diff": -0.5339930057525635,
+    "improved": 0
+  },
+  {
+    "prompt_id": 15,
+    "baseline_reward": 0.474772185087204,
+    "ditto_reward": -0.12232410162687302,
+    "baseline_reward_diff": 0.3437716066837311,
+    "ditto_reward_diff": 0.13562044501304626,
+    "improved": 0
+  },
+  {
+    "prompt_id": 16,
+    "baseline_reward": 0.12628173828125,
+    "ditto_reward": 1.1162128448486328,
+    "baseline_reward_diff": 0.17016306519508362,
+    "ditto_reward_diff": 1.0082472562789917,
+    "improved": 1
+  },
+  {
+    "prompt_id": 17,
+    "baseline_reward": 0.09381115436553955,
+    "ditto_reward": 0.5397898554801941,
+    "baseline_reward_diff": 0.07334154844284058,
+    "ditto_reward_diff": 0.45885226130485535,
+    "improved": 1
+  },
+  {
+    "prompt_id": 18,
+    "baseline_reward": 0.5678381323814392,
+    "ditto_reward": 0.9006800055503845,
+    "baseline_reward_diff": 0.5094171762466431,
+    "ditto_reward_diff": 0.6164644360542297,
+    "improved": 1
+  },
+  {
+    "prompt_id": 19,
+    "baseline_reward": 0.7887691259384155,
+    "ditto_reward": 1.2371381521224976,
+    "baseline_reward_diff": 0.6344402432441711,
+    "ditto_reward_diff": 1.0414701700210571,
+    "improved": 1
+  },
+  {
+    "prompt_id": 20,
+    "baseline_reward": 0.9028644561767578,
+    "ditto_reward": 0.7794578075408936,
+    "baseline_reward_diff": 0.5540276169776917,
+    "ditto_reward_diff": 0.6290566325187683,
+    "improved": 0
+  },
+  {
+    "prompt_id": 21,
+    "baseline_reward": -1.5696619749069214,
+    "ditto_reward": -0.3025217354297638,
+    "baseline_reward_diff": -1.9878520965576172,
+    "ditto_reward_diff": -0.9389956593513489,
+    "improved": 1
+  },
+  {
+    "prompt_id": 22,
+    "baseline_reward": -0.6302317976951599,
+    "ditto_reward": 0.33214327692985535,
+    "baseline_reward_diff": -0.7417605519294739,
+    "ditto_reward_diff": -0.05877772718667984,
+    "improved": 1
+  },
+  {
+    "prompt_id": 23,
+    "baseline_reward": -0.029310792684555054,
+    "ditto_reward": 0.3074587285518646,
+    "baseline_reward_diff": -0.7488373517990112,
+    "ditto_reward_diff": 0.17175763845443726,
+    "improved": 1
+  },
+  {
+    "prompt_id": 24,
+    "baseline_reward": 0.04586104303598404,
+    "ditto_reward": 0.16052603721618652,
+    "baseline_reward_diff": -0.29974886775016785,
+    "ditto_reward_diff": 0.0055088624358177185,
+    "improved": 1
+  },
+  {
+    "prompt_id": 25,
+    "baseline_reward": 0.1342162787914276,
+    "ditto_reward": 0.7158965468406677,
+    "baseline_reward_diff": 0.053550899028778076,
+    "ditto_reward_diff": 0.5829980373382568,
+    "improved": 1
+  },
+  {
+    "prompt_id": 26,
+    "baseline_reward": 0.23015916347503662,
+    "ditto_reward": 0.6830005049705505,
+    "baseline_reward_diff": 0.23356559872627258,
+    "ditto_reward_diff": 0.4279172122478485,
+    "improved": 1
+  },
+  {
+    "prompt_id": 27,
+    "baseline_reward": 0.7712073922157288,
+    "ditto_reward": 0.2535278797149658,
+    "baseline_reward_diff": 0.679591953754425,
+    "ditto_reward_diff": 0.2398872971534729,
+    "improved": 0
+  },
+  {
+    "prompt_id": 28,
+    "baseline_reward": 0.8305938243865967,
+    "ditto_reward": 0.35789647698402405,
+    "baseline_reward_diff": 0.4522377550601959,
+    "ditto_reward_diff": 0.32047760486602783,
+    "improved": 0
+  },
+  {
+    "prompt_id": 29,
+    "baseline_reward": 0.2161828875541687,
+    "ditto_reward": 0.568784773349762,
+    "baseline_reward_diff": -0.2819165289402008,
+    "ditto_reward_diff": 0.15228071808815002,
+    "improved": 1
+  }
+]

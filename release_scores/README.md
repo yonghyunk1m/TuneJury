@@ -6,16 +6,18 @@ The released TuneJury checkpoint (`checkpoints/tunejury.pt`) was applied to seve
 
 ## Files
 
-| File | Source dataset | License | Rows | Columns (beyond `track_id`, `reward_score`) |
-|---|---|---|---:|---|
-| `mtg_jamendo_scores_rescored.csv` | [MTG-Jamendo](https://repositori.upf.edu/handle/10230/42015) | CC-BY-NC-SA 4.0 | 55,701 | `relative_path` |
-| `fma_large_scores_rescored.csv` | [FMA-Large](https://github.com/mdeff/fma) | per-track (mostly CC) | 106,401 | – |
-| `mtat_scores.csv` | [MagnaTagATune (MTAT)](https://ismir2009.ismir.net/proceedings/OS5-5.pdf) | per-track | 25,860 | `audio_path` |
-| `openmic_scores.csv` | [OpenMIC-2018](https://archives.ismir.net/ismir2018/paper/000248.pdf) | CC-BY 4.0 | 20,000 | `audio_path` |
-| `midicaps_scores.csv` | [MidiCaps](https://huggingface.co/datasets/amaai-lab/MidiCaps) | CC-BY 4.0 | 5,000 | `tempo`, `key`, `duration`, `genre`, `caption` |
-| `musiccaps_scores.csv` | [MusicCaps](https://www.kaggle.com/datasets/googleai/musiccaps) | CC-BY-SA 4.0 (captions) | 5,352 | `caption`, `audioset_labels` |
-| `sdd_scores.csv` | [Song Describer Dataset (SDD)](https://arxiv.org/abs/2311.10057) | captions CC-BY 4.0 / CC0; underlying MTG-Jamendo audio CC-BY-NC-SA | 706 | – |
-| **Total** | | | **219,020** | |
+| File | Source (official) | License | Rows | Extra columns | Audio access |
+|---|---|---|---:|---|---|
+| `mtg_jamendo_scores_rescored.csv` | [MTG-Jamendo](https://github.com/MTG/mtg-jamendo-dataset) | CC-BY-NC-SA 4.0 | 55,701 | `relative_path` | download via source |
+| `fma_large_scores_rescored.csv` | [FMA-Large](https://github.com/mdeff/fma) | per-track (mostly CC) | 106,401 | – | [Kaggle mirror](https://www.kaggle.com/datasets/brunosette/fma-large) |
+| `mtat_scores.csv` | [MagnaTagATune](https://mirg.city.ac.uk/codeapps/the-magnatagatune-dataset) | per-track | 25,860 | `audio_path` | download via source |
+| `openmic_scores.csv` | [OpenMIC-2018](https://github.com/cosmir/openmic-2018) | CC-BY 4.0 | 20,000 | `audio_path` | [Zenodo](https://zenodo.org/records/1432913) |
+| `midicaps_scores.csv` | [MidiCaps](https://huggingface.co/datasets/amaai-lab/MidiCaps) | CC-BY 4.0 | 5,000 | `tempo`, `key`, `duration`, `genre`, `caption` | HF (MIDI, render to audio) |
+| `musiccaps_scores.csv` | [MusicCaps](https://huggingface.co/datasets/google/MusicCaps) | CC-BY-SA 4.0 (captions) | 5,352 | `caption`, `audioset_labels` | ▶ [CLAPv2/MusicCaps](https://huggingface.co/datasets/CLAPv2/MusicCaps) |
+| `sdd_scores.csv` | [Song Describer Dataset](https://github.com/mulab-mir/song-describer-dataset) | captions CC-BY 4.0 / CC0; underlying MTG-Jamendo audio CC-BY-NC-SA | 706 | – | ▶ [renumics/song-describer-dataset](https://huggingface.co/datasets/renumics/song-describer-dataset) |
+| **Total** | | | **219,020** | | |
+
+**Source (official)** links the authoritative home for citation and attribution. **Audio access** is where the audio can be obtained or played (▶ plays directly in the Hugging Face dataset viewer). The renumics SDD, CLAPv2 MusicCaps, and the FMA-Large Kaggle entry are community mirrors, not the official release.
 
 The Song Describer Dataset is a captioned subset of MTG-Jamendo: all 706 of its two-minute excerpts come from tracks also scored in the MTG-Jamendo file (the excerpt length differs, so the scores differ).
 

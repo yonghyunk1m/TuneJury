@@ -4,6 +4,28 @@ Paper anchor: Appendix §A.I (Released Artifacts and License Interplay) + Table 
 
 The released TuneJury checkpoint (`checkpoints/tunejury.pt`) was applied to seven open-license music collections, producing one track-level reward score per clip across 219,020 clips. This directory holds the seven per-dataset CSVs.
 
+## On the Hugging Face Hub
+
+The same scores are mirrored as a dataset at [`TuneJury/release-scores`](https://huggingface.co/datasets/TuneJury/release-scores), with one config per collection (`mtg_jamendo`, `fma_large`, `mtat`, `openmic`, `midicaps`, `musiccaps`, `sdd`).
+
+```python
+from datasets import load_dataset
+
+ds = load_dataset("TuneJury/release-scores", "mtg_jamendo")   # one config per collection
+print(ds["train"][0])   # {'track_id': ..., 'reward_score': ..., ...}
+```
+
+Pull a single file directly, or the whole dataset via the CLI:
+
+```python
+from huggingface_hub import hf_hub_download
+path = hf_hub_download("TuneJury/release-scores", "sdd_scores.csv", repo_type="dataset")
+```
+
+```bash
+huggingface-cli download TuneJury/release-scores --repo-type dataset --local-dir release_scores_hub
+```
+
 ## Files
 
 | File | Source (official) | License | Rows | Extra columns | Audio access |

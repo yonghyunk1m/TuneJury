@@ -153,7 +153,7 @@ See [`docs/reproducing.md`](docs/reproducing.md) for the end-to-end pipeline. He
 
 ## Released reward scores (~219K tracks across 7 datasets)
 
-Pre-computed TuneJury reward scores for seven open-license collections are included in [`release_scores/`](release_scores/) (§A.H). Per-dataset CSVs total 22 MB.
+Pre-computed TuneJury reward scores for seven open-license collections are included in [`release_scores/`](release_scores/) (§A.H). Per-dataset CSVs total 22 MB. They are also on the Hugging Face Hub as [`TuneJury/release-scores`](https://huggingface.co/datasets/TuneJury/release-scores), one config per collection: `load_dataset("TuneJury/release-scores", "<config>")`.
 
 | File | Source | Rows |
 |---|---|---:|

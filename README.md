@@ -21,6 +21,9 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2606.17006-b31b1b.svg?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2606.17006)
 [![Project page](https://img.shields.io/badge/🌐_Project_page-yonghyunk1m.github.io%2FTuneJury-0071e3.svg)](https://yonghyunk1m.github.io/TuneJury/)
+[![Landing](https://img.shields.io/badge/🤗_Space-Landing-FFD21E.svg)](https://huggingface.co/spaces/TuneJury/landing)
+[![Model](https://img.shields.io/badge/🤗_Model-tunejury-FFD21E.svg)](https://huggingface.co/TuneJury/tunejury)
+[![Dataset](https://img.shields.io/badge/🤗_Dataset-release--scores-FFD21E.svg)](https://huggingface.co/datasets/TuneJury/release-scores)
 [![Listening demo](https://img.shields.io/badge/🤗_Space-Listening_demo-FFD21E.svg)](https://huggingface.co/spaces/TuneJury/tune-jury-demo)
 [![Interactive scoring](https://img.shields.io/badge/🤗_Space-Interactive_scoring-FFD21E.svg)](https://huggingface.co/spaces/TuneJury/tune-jury)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg)](LICENSE)

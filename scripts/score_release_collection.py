@@ -6,8 +6,8 @@ This is the exact, deterministic protocol used to produce every CSV in
 directory glob), it writes ``track_id,reward_score`` and is resume-safe.
 
 Protocol (uniform across all seven released collections):
-  * CLAP audio branch: the centre 10 s window at 48 kHz mono. Clips of 10 s
-    or less are encoded whole. The window is fixed (centre), so scoring is
+  * CLAP audio branch: the center 10 s window at 48 kHz mono. Clips of 10 s
+    or less are encoded whole. The window is fixed (center), so scoring is
     deterministic, unlike a random-crop encode.
   * MERT audio branch: the full track at 24 kHz mono, frame embeddings
     mean-pooled. Tracks longer than 300 s are encoded in consecutive 300 s

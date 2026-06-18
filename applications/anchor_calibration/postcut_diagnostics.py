@@ -12,7 +12,7 @@ Inputs:
   --label-csv         post-cutoff CSV labels (battle_id, preference, system_a, system_b)
   --training-split    canonical MA training split json (for "unseen system" probe)
 
-The CSV is the same labelled post-cutoff slice used by run_experiment.py
+The CSV is the same labeled post-cutoff slice used by run_experiment.py
 (see anchor_calibration/README.md). Outputs go to stdout.
 """
 from __future__ import annotations

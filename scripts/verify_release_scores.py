@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Re-score a random sample and confirm it matches a released CSV.
 
-Because the scoring protocol is deterministic (fixed centre CLAP window, full
+Because the scoring protocol is deterministic (fixed center CLAP window, full
 MERT, zero text), re-scoring any released track reproduces its CSV value to
 floating-point tolerance. This script picks N random rows, re-scores them, and
 reports the worst absolute difference.

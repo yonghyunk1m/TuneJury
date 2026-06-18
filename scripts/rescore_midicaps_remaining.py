@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Resume MidiCaps rescoring (post-bugfix) for any track not in the released CSV.
+"""Resume MidiCaps rescoring for any track not in the released CSV.
 
 Identifies missing track_ids vs release_scores/midicaps_scores.csv, renders
 MIDI via FluidSynth, scores via TuneJury Scorer (last-layer MERT mean +

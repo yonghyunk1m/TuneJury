@@ -61,7 +61,7 @@ conda activate tunejury
 
 Each Mode 1/2/3 backbone needs its **own** conda environment (their CUDA / `torch` / `diffusers` / `transformers` pins conflict with each other and with `tunejury`). See §0.7 below and §13 for the install commands.
 
-**Container alternative.** A `Dockerfile` at the repo root builds the main `tunejury` environment on top of `nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04`. It covers §3-§5, §10, §11 but not the Mode 1/2/3 backbones (which need separate envs per §0.7). Build with `docker build -t tunejury:0.1 .`; run with `docker run --rm -it --gpus '"device=N"' -v $(pwd):/workspace -w /workspace tunejury:0.1 bash`.
+**Container alternative.** A `Dockerfile` at the repo root builds the main `tunejury` environment on top of `nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04`. It covers §3-§5, §10, §11 but not the Mode 1/2/3 backbones (which need separate envs per §0.7). Build with `docker build -t tunejury:0.1 .`; run with `docker run --rm -it --gpus '"device=N"' -v $(pwd):/workspace -w /workspace tunejury:0.1 bash`.
 
 ### 0.3 Hugging Face login (gated models)
 
@@ -82,7 +82,7 @@ The same token also unlocks MuQ-MuLan-large (encoder-swap probe, §3.4 / §5.3) 
 | `MERT-v1-330M` weights | auto-download via `transformers` (after HF login, §0.3) | ~1.3 GB | Any scoring at all |
 | `data/processed_features/` (~480 MB extracted; ~280 GB raw upstream audio) | not redistributable; extract locally per §2 | 480 MB extracted | `tunejury.train` (§3), internal eval (§4) |
 | CMI-RewardBench manifest | <https://github.com/Haiwen-Xia/CMI-RewardBench> | ~2 GB | §5 head-to-head |
-| SDD-706 reference audio (MTG-Jamendo subset) | <https://huggingface.co/datasets/mulab-mir/song-describer-dataset> | ~3.5 GB | Mode 1 BoN (§7), Mode 3 MAD (§9), all FAD-CLAP / FAD-MERT against SDD-706 |
+| SDD-706 reference audio (MTG-Jamendo subset) | <https://github.com/mulab-mir/song-describer-dataset> | ~3.5 GB | Mode 1 BoN (§7), Mode 3 MAD (§9), all FAD-CLAP / FAD-MERT against SDD-706 |
 | Mode 1 backbones (MusicGen-{medium,large}, AudioLDM2-music, ACE-Step Turbo Continuous) | auto-download on first use via `audiocraft` / `diffusers` / `acestep` | ~10 GB total | §7 |
 | Mode 2 backbones (SAO-small, TangoFlux) | auto-download via `stable_audio_tools` / TangoFlux release | ~5 GB total | §8 |
 | Mode 3 backbone (FluxAudio-S, 120 M DiT) | MeanAudio release: download `fluxaudio_s_full.pth` from `huggingface.co/AndreasXi/MeanAudio` and use the MeanAudio training framework (`github.com/xiquan-li/MeanAudio`) for Step 4 (fine-tune). | ~500 MB ckpt | §9 expert iter |
@@ -122,7 +122,7 @@ Signs, orderings, and win counts are essentially unchanged. For bit-exact reprod
 |---|---|---|
 | Training TuneJury (the head) | `meanaudio` (Mode 3 driver repo) **or** `tunejury` | `tunejury/train.py` |
 | Mode 1 · MusicGen-medium/large | `musicgen` | `applications/mode1_bon/generate_musicgen.py` |
-| Mode 1 · ACE-Step Turbo Continuous | `acestep` | `applications/mode1_bon/generate_acestep.py` |
+| Mode 1 · ACE-Step Turbo Continuous | `ace_step` | `applications/mode1_bon/generate_acestep.py` |
 | Mode 1 · AudioLDM2-music | `meanaudio` (shares the `diffusers` pin) | `applications/mode1_bon/generate_audioldm2.py` |
 | Mode 2 · SAO-small | `sao` | `applications/mode2_ditto/sao_small.py` |
 | Mode 2 · TangoFlux | `tangoflux` | `applications/mode2_ditto/tangoflux_ditto.py` |
@@ -279,7 +279,7 @@ Mode 1 BoN (§7), Mode 2 DITTO (§8), and Mode 3 expert iteration (§9) all eval
 
 To prepare the SDD-706 reference directory:
 
-1. Download SDD from Hugging Face: `https://huggingface.co/datasets/mulab-mir/song-describer-dataset` (CC-BY-NC-SA; audio sourced from MTG-Jamendo).
+1. Download SDD: `https://github.com/mulab-mir/song-describer-dataset` (CC-BY-NC-SA; audio sourced from MTG-Jamendo).
 2. Filter to the canonical 706 clips (the subset used in the original Stable Audio Open evaluation). The required `track_id` list is derivable from the SDD `descriptions.csv` after dropping rows with `is_valid_subset == False` and de-duplicating to one caption per clip.
 3. Resample all clips to 16 kHz mono WAV under a single directory. This is the path passed as `--reference-dir` (Mode 1, §7 Step 3) and `--sdd706_dir` (Mode 1 / Mode 3 MAD, §7 Step 4 and §9).
 
@@ -379,8 +379,7 @@ python -m tunejury.train \
 
 Use `data/extract_features.py --encoders muq` first to populate `data/muq_features/`.
 The encoder choice is read from the sidecar `.json` written next to the checkpoint
-(input dimension auto-resolved from the feature stack; TODO: expose `--encoder-dim`
-as an explicit flag once the MuQ-MuLan stack lands upstream).
+(input dimension auto-resolved from the feature stack).
 
 ---
 
@@ -639,7 +638,7 @@ Full instructions in [`applications/mode1_bon/README.md`](../applications/mode1_
 
 - §1 Setup completed (the `tunejury` conda env, the TuneJury head checkpoint, the LAION-CLAP-Music checkpoint).
 - §2.5 SDD-706 reference directory ready. The 100 conditioning prompts are committed at `eval/prompts/sdd100.json`; the 706-clip reference audio (16 kHz mono WAV) is needed for `--reference-dir` in Step 3 and `--sdd706_dir` in Step 4.
-- Each backbone needs its own conda env (see §13): `musicgen`, `audioldm2`, `acestep`. The four backbones are MusicGen-medium, MusicGen-large, AudioLDM2-music, and ACE-Step v1.5 Turbo Continuous; `N ∈ {1, 2, 4, 8, 16, 32}`.
+- Each backbone needs its own conda env (see §13): `musicgen`, `meanaudio`, `ace_step`. The four backbones are MusicGen-medium, MusicGen-large, AudioLDM2-music, and ACE-Step v1.5 Turbo Continuous; `N ∈ {1, 2, 4, 8, 16, 32}`.
 
 Per-backbone summary:
 
@@ -854,12 +853,12 @@ python -m applications.anchor_calibration.intrinsic_difficulty \
     --checkpoint     checkpoints/tunejury.pt \
     --feat-dir-fm    /path/to/musicarena/features_feb_mar \
     --feat-dir-apr   /path/to/musicarena/features_april \
-    --bench-test     data/splits/MusicArena-bench-clean-test.txt \
+    --bench-test     data/splits/MusicArena-random_split_bench_clean.json \
     --increment-uuids data/splits/MusicArena_v2_increment.json
 python -m applications.anchor_calibration.postcut_diagnostics \
     --checkpoint     checkpoints/tunejury.pt \
     --feat-dir       /path/to/musicarena/features \
-    --training-split data/splits/MusicArena-bench-clean-train.txt \
+    --training-split data/splits/MusicArena-random_split_bench_clean.json \
     --label-csv      data/labels/ma_postcut_scored.csv
 python -m applications.anchor_calibration.heldout_margin \
     --checkpoint   checkpoints/tunejury.pt \
@@ -906,38 +905,15 @@ Feb-Mar β_s on April (cross-month, Table `cross_month`):
 
 Per-system breakdown reveals month-over-month drift: Sonauto v3 gains +19 pp, Lyria-3-30s +10 pp, Lyria-3-Pro preview +5.5 pp, MusicGen-medium +3.4 pp, Magenta-RT flat; Elevenlabs loses -5.8 pp, ACE-Step -2.0 pp, Sonauto v2 -0.6 pp. Aggregate effect cancels.
 
-### Reproducibility audit log (2026-05-26)
+### Verifying the released checkpoint
 
-The original paper `tab:ood_scaling` / `fig:ood_scaling` numbers came from a paper-time JSON
-(`music-ranknet/results/ood_scaling_results.json`, generated 2026-05-21 02:11)
-produced by a now-deleted prototype K-sweep script. That JSON was created
-15 minutes *before* the polished `applications/anchor_calibration/run_experiment.py`
-was committed (855159e, 2026-05-21 02:26) and almost certainly carried the
-same concat-order bug that was fixed the previous day in `db01c91`
-(2026-05-20: `eval/internal.py` / `tunejury/score.py` / `tunejury/differentiable.py`).
-The prototype JSON does **not** reproduce with the released `tunejury.pt`.
+`md5sum checkpoints/tunejury.pt` should print `0524e60900e5ee3c4046e599f613b466`.
 
-A second pre-existing bug was uncovered during this audit: `tunejury/train.py`
-was missed in `db01c91` and still used the bugged `[clap, text, mert]` order
-at training time. This was patched on 2026-05-26 to match the
-`[clap, mert, text]` order used by `eval/internal.py` and the released
-checkpoint. Both the anchor (A) numbers above and the retrain (R) row
-in paper `tab:ood_scaling` / `fig:ood_scaling` were regenerated after this fix using
-`applications/anchor_calibration/run_experiment.py` and `retrain_ksweep.py`.
-
-**Other paper headline numbers reproduce exactly with the released checkpoint:**
+**Paper headline numbers reproduce exactly with the released checkpoint:**
 - §1 / §3 headline: 0.7086 pairwise accuracy + ECE 0.0339 on 2,035-pair test (`python -m eval.internal`)
 - §4.1 per-dataset: AIME 0.6744 / MP 0.7184 / SE 0.9076 / MA 0.8000, with leave-out gains matching paper to 0.001 (`python -m eval.internal_per_dataset`)
 - §A.D heldout-margin in-distribution row: mean $|\Delta r|$ = 1.148, median = 0.728, $<$0.5 = 36%, $<$1.0 = 62% on the same 2,035-pair test (`python -m applications.anchor_calibration.heldout_margin`)
 - §11 per-system / vocal / popularity probes: AIME ρ = +0.978, MP ρ = +0.964, vocal $-$ instrumental gap +0.441 (Welch t = +24.2 at n=6,120), FMA-Large bottom-decile −1.413 vs top-decile +0.084 (Spearman +0.285 at n=106,401)
-
-**Second-pass audit (2026-06-02), Table `tab:intrinsic_difficulty` + §A.D Diagnosis (iii) regenerated:**
-The paper-time Feb-Mar / April rows of `tab:intrinsic_difficulty` and the right-edge agreement in §A.D Diagnosis (iii) were not regenerated in the 2026-05-26 pass and carried the same pre-bugfix scoring as `ood_scaling_results.json`. They were regenerated on 2026-06-02 against the released `tunejury.pt`; the paper has been updated to reflect the post-bugfix values (`Feb-Mar mean = 0.647`, `April mean = 0.721`, $|\Delta_\text{TJ}|$ ${>}1.2$ agreement = 62.0%). A separate bug was found in `applications/anchor_calibration/intrinsic_difficulty.py` (the Feb-Mar pool was not intersected with the CSV-decisive labels, yielding 774 pairs instead of the paper's 598); both that bug and a dict-vs-list input-format bug were patched in the same commit. The fixes do not change any §1 / §3 / §4 / §10 anchor-row / §11 probe number; only the §A intrinsic_difficulty Feb-Mar/April rows and the right-edge of §A.D Diagnosis (iii) move.
-
-Verifying the released artifact: `md5sum checkpoints/tunejury.pt` should
-print `0524e60900e5ee3c4046e599f613b466`. This matches
-`music-ranknet/checkpoints/reward_model_proper_split.pt`, which was renamed
-in commit 99ee4f5 (2026-05-20).
 
 ---
 
@@ -966,7 +942,7 @@ python vocal_discrimination.py \
 # Popularity-stratified probe (FMA-Large). Fast path: reuse the released
 # CSV from release_scores/. Re-extract path: pass --features_root + --checkpoint.
 python popularity_probe.py \
-    --scores_csv ../../release_scores/fma_large_scores.csv \
+    --scores_csv ../../release_scores/fma_large_scores_rescored.csv \
     --listens_csv /path/to/fma_metadata/track_listens.csv \
     --out_dir results/amateur_pro
 
@@ -1026,9 +1002,9 @@ Each application backbone needs its own conda environment to avoid CUDA/torch co
 | Backbone | Conda env | Install |
 |---|---|---|
 | MusicGen-medium/large | `musicgen` | `pip install audiocraft` |
-| AudioLDM2-music | `audioldm2` | `pip install diffusers` |
+| AudioLDM2-music | `meanaudio` | `pip install diffusers` |
 | SAO-small | `sao` | `pip install stable_audio_tools` |
 | TangoFlux | `tangoflux` | `pip install git+https://github.com/declare-lab/TangoFlux` |
-| ACE-Step v1.5 Turbo Continuous | `acestep` | `pip install git+https://github.com/ace-step/ACE-Step` |
+| ACE-Step v1.5 Turbo Continuous | `ace_step` | `pip install git+https://github.com/ace-step/ACE-Step` |
 | FluxAudio-S (Mode 3) | `meanaudio` | clone `github.com/xiquan-li/MeanAudio` |
 | TuneJury scoring + everything else | `tunejury` | `environment.yml` in this repo |

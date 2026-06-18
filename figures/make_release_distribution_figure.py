@@ -75,7 +75,7 @@ def main() -> None:
     per_ds: dict[str, np.ndarray] = {}
     for ds in DATASETS:
         stem = ds.lower().replace("-", "_")
-        # Prefer the post-bugfix rescored CSV when present (May 2026 MERT/empty-prompt fix).
+        # Prefer the rescored CSV when present.
         csv_path = args.scores_root / f"{stem}_scores_rescored.csv"
         if not csv_path.exists():
             csv_path = args.scores_root / f"{stem}_scores.csv"

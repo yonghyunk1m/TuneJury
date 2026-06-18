@@ -1,9 +1,0 @@
-{
-  "sao_baseline_n30": 1.070154,
-  "sao_ditto_n30": 1.570022,
-  "n": 30,
-  "delta": 0.499868,
-  "seed": 42,
-  "num_buckets": "auto",
-  "_note": "MAD = -ln(MAUVE); lower = closer to SDD-706. Computed against the canonical sao_small_n30_lr05_paper baseline/ditto wav files using mauve.compute_mauve with num_buckets='auto' and seed=42 (matches Mode 3 mad_unified.json protocol). Positive delta = SAO drifts AWAY from SDD-706 under DITTO."
-}

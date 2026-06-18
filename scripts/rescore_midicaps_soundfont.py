@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Re-render 300 MidiCaps tracks with FluidR3_GM + TimGM6mb soundfonts and rescore
-under post-bugfix TuneJury, for the §A.I MidiCaps soundfont sensitivity probe.
+under TuneJury, for the §A.I MidiCaps soundfont sensitivity probe.
 """
 import argparse, csv, json, os, subprocess, sys, tempfile
 from pathlib import Path

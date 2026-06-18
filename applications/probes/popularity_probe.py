@@ -1,6 +1,6 @@
 """Popularity-stratified TuneJury reward probe on FMA-Large.
 
-FMA-Large includes per-track ``original_listens`` (track play counts on
+FMA-Large includes per-track ``track_listens`` (track play counts on
 the Free Music Archive platform). This is a noisy popularity signal,
 not a clean amateur-vs-professional label: track age, genre
 popularity, fan base, FMA recommendation surfacing, and external
@@ -23,9 +23,9 @@ preference features (``data/processed_features/``) and does NOT carry
 the FMA-Large single-clip cache. Two ways to reproduce:
 
 (1) Score CSV (fast path, default): pass
-        --scores_csv release_scores/fma_large_scores.csv
+        --scores_csv release_scores/fma_large_scores_rescored.csv
     which carries pre-computed per-track TuneJury rewards
-    (``track_id,reward_score``). Join with FMA-Large's ``original_listens``
+    (``track_id,reward_score``). Join with FMA-Large's ``track_listens``
     from ``--listens_csv`` (a ``track_id,listens`` two-column CSV
     derived from ``fma_metadata/tracks.csv``).
 
@@ -40,7 +40,7 @@ the FMA-Large single-clip cache. Two ways to reproduce:
 Example
 -------
 $ python popularity_probe.py \\
-      --scores_csv  release_scores/fma_large_scores.csv \\
+      --scores_csv  release_scores/fma_large_scores_rescored.csv \\
       --listens_csv path/to/fma_listens.csv \\
       --out_dir     applications/probes/results/popularity_probe
 """
@@ -68,7 +68,7 @@ def _parse_args() -> argparse.Namespace:
     # Fast path: read pre-computed scores from the released CSV.
     p.add_argument(
         "--scores_csv", default=None,
-        help="Path to release_scores/fma_large_scores.csv (track_id,reward_score). "
+        help="Path to release_scores/fma_large_scores_rescored.csv (track_id,reward_score). "
         "If supplied, the probe uses these pre-computed scores and skips "
         "feature extraction.",
     )

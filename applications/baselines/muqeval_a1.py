@@ -269,8 +269,8 @@ def main():
     ap.add_argument("--bench_root", default=None,
                     help="CMI-RewardBench dataset root (required with --reinfer)")
     ap.add_argument("--device", default="cuda:0" if torch.cuda.is_available() else "cpu")
-    ap.add_argument("--muqeval_repo", required=True,
-                    help="Where to clone the upstream MuQ-Eval repo")
+    ap.add_argument("--muqeval_repo", default="/tmp/MuQ-Eval",
+                    help="Where to clone the upstream MuQ-Eval repo (default /tmp/MuQ-Eval)")
     ap.add_argument("--summary", default=str(DEFAULT_SUMMARY))
     ap.add_argument("--reinfer", action="store_true",
                     help="Re-run audio inference. Default: read committed summary.json (paper-exact).")

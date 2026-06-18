@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TuneJury · An Open Metric for Music Generation Preference Alignment</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+          color: #1d1d1f; background: #fafafa; margin: 0; padding: 0;
+          -webkit-font-smoothing: antialiased; line-height: 1.55; }
+  .container { max-width: 880px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+  header { text-align: center; margin-bottom: 2.5rem; }
+  header h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.025em;
+               margin: 0 0 0.4rem; }
+  header .subtitle { color: #515154; font-size: 1.15rem; font-weight: 400;
+                      max-width: 680px; margin: 0 auto 0.8rem; }
+  header .authors { color: #2c2c2e; font-size: 0.98rem; margin-top: 0.8rem;
+                    line-height: 1.6; }
+  header .authors a { color: #1d1d1f; text-decoration: none; font-weight: 500; }
+  header .authors a:hover { color: #0071e3; text-decoration: underline; }
+  header .authors sup { color: #6e6e73; font-size: 0.7em; font-weight: 600; }
+  header .affiliations { color: #6e6e73; font-size: 0.85rem; margin-top: 0.4rem; }
+  header .affiliations sup { color: #6e6e73; font-size: 0.78em; font-weight: 600;
+                              margin-right: 0.15em; }
+  header .venue { color: #6e6e73; font-size: 0.85rem; margin-top: 0.6rem; }
+
+  .link-row { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap;
+              margin: 1.6rem 0 0.4rem; }
+  .link-btn { display: inline-flex; align-items: center; gap: 0.4rem;
+              padding: 0.6rem 1.2rem; background: #1d1d1f; color: #fff;
+              border-radius: 10px; text-decoration: none; font-size: 0.92rem;
+              font-weight: 600; transition: all 0.15s; }
+  .link-btn:hover { background: #0071e3; transform: translateY(-1px); }
+  .link-btn.secondary { background: #fff; color: #1d1d1f; border: 1px solid #d2d2d7; }
+  .link-btn.secondary:hover { background: #f0f0f2; color: #0071e3; }
+  .link-btn.disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+  .link-btn svg { width: 16px; height: 16px; }
+
+  section { background: #fff; border-radius: 14px; padding: 1.6rem 1.8rem;
+            margin-bottom: 1.2rem; box-shadow: 0 1px 6px rgba(0,0,0,0.04); }
+  section h2 { font-size: 1.25rem; font-weight: 700; margin: 0 0 0.7rem; }
+  p { margin: 0 0 0.8rem; color: #2c2c2e; }
+
+  .pill { display: inline-block; padding: 0.15rem 0.55rem; background: #f0f0f2;
+          color: #515154; border-radius: 6px; font-size: 0.78rem; font-weight: 600;
+          margin-right: 0.3rem; font-variant-numeric: tabular-nums; }
+
+  pre { background: #f4f4f6; border-radius: 8px; padding: 0.9rem 1.1rem;
+        font-size: 0.85rem; overflow-x: auto; line-height: 1.4; margin: 0.4rem 0; }
+  code { background: #f0f0f2; padding: 0.1rem 0.35rem; border-radius: 4px;
+          font-size: 0.88em; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem;
+                margin: 0.8rem 0; }
+  .stat { background: #fafafa; border: 1px solid #e5e5e7; border-radius: 10px;
+           padding: 0.8rem; text-align: center; }
+  .stat .num { font-size: 1.4rem; font-weight: 700; color: #0071e3;
+                font-variant-numeric: tabular-nums; }
+  .stat .label { font-size: 0.75rem; color: #6e6e73; margin-top: 0.2rem; }
+
+
+  .audio-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.8rem; }
+  .audio-card { background: #fafafa; border: 1px solid #e5e5e7; border-radius: 10px; padding: 0.9rem 1rem; }
+  .audio-card .audio-label { font-size: 0.78rem; font-weight: 600; color: #6e6e73; margin-bottom: 0.4rem; }
+  .audio-card audio { width: 100%; height: 36px; display: block; }
+  .audio-card .audio-reward { font-size: 0.85rem; color: #1d1d1f; margin-top: 0.5rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  footer { text-align: center; color: #86868b; font-size: 0.85rem;
+            margin-top: 2.5rem; }
+  @media (max-width: 640px) {
+    header h1 { font-size: 2.2rem; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .audio-pair { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <img src="assets/tunejury_logo.webp" alt="TuneJury logo" width="100" height="100" style="display:block;margin:0 auto 0.8rem;border-radius:18px;">
+  <h1>TuneJury</h1>
+  <div class="subtitle">An Open Metric for Improving Music Generation Preference Alignment</div>
+  <div class="authors">
+    <span style="white-space:nowrap;"><a href="https://yonghyunk1m.notion.site/" target="_blank" rel="noopener">Yonghyun Kim</a><sup>♯</sup></span> ·
+    <span style="white-space:nowrap;"><a href="https://jnwnlee.github.io/" target="_blank" rel="noopener">Junwon Lee</a><sup>♭♭</sup></span> ·
+    <span style="white-space:nowrap;"><a href="https://haiwen-xia.github.io/" target="_blank" rel="noopener">Haiwen Xia</a><sup>♮♮</sup></span> ·
+    <span style="white-space:nowrap;"><a href="https://nicolaus625.github.io/" target="_blank" rel="noopener">Yinghao Ma</a><sup>♯♯</sup></span> ·
+    <span style="white-space:nowrap;"><a href="https://www.linkedin.com/in/junghyun-koo-525a31251/" target="_blank" rel="noopener">Junghyun Koo</a><sup>♮</sup></span> ·
+    <span style="white-space:nowrap;"><a href="https://www.linkedin.com/in/koichisaito0418/?locale=ja" target="_blank" rel="noopener">Koichi Saito</a><sup>♮</sup></span> ·
+    <span style="white-space:nowrap;"><a href="https://www.yukimitsufuji.com/" target="_blank" rel="noopener">Yuki Mitsufuji</a><sup>♮</sup></span> ·
+    <span style="white-space:nowrap;"><a href="https://chrisdonahue.com/" target="_blank" rel="noopener">Chris Donahue</a><sup>♭</sup></span>
+  </div>
+  <div class="affiliations">
+    <sup>♭</sup>Carnegie Mellon University · <sup>♮</sup>Sony AI · <sup>♯</sup>Georgia Tech · <sup>♭♭</sup>KAIST · <sup>♮♮</sup>Peking University · <sup>♯♯</sup>Queen Mary University of London
+  </div>
+  <div class="venue">Preprint · arXiv:2606.17006</div>
+
+  <div class="link-row">
+    <a class="link-btn" href="https://github.com/yonghyunk1m/TuneJury" target="_blank">
+      <span style="margin-right:0.3rem;">💻</span>Code
+    </a>
+    <a class="link-btn secondary" href="https://arxiv.org/abs/2606.17006" target="_blank">
+      <span style="margin-right:0.3rem;">📄</span>arXiv
+    </a>
+    <a class="link-btn secondary" href="https://huggingface.co/spaces/TuneJury/tune-jury-demo" target="_blank">
+      <span style="margin-right:0.3rem;">🎧</span>Listening demo
+    </a>
+    <a class="link-btn secondary" href="https://huggingface.co/spaces/TuneJury/tune-jury" target="_blank">
+      <span style="margin-right:0.3rem;">🎚️</span>Interactive scoring
+    </a>
+  </div>
+</header>
+
+<section>
+  <h2>Listen first: one example per reward-driven mode</h2>
+  <p style="font-size:0.88rem;color:#515154;margin-bottom:1rem;">SDD-100 is our <a href="https://github.com/yonghyunk1m/TuneJury/blob/main/eval/prompts/sdd100.json">100-prompt subset</a> of the Song Describer Dataset, used for all three modes.</p>
+
+  <h3 style="margin-top:1rem;">Mode 1: best-of-N selection (MusicGen-medium, N=16)</h3>
+  <p style="font-size:0.88rem;color:#515154;">SDD-100 prompt 75: <em>"A dark trance track featuring accordion, blending hypnotic rhythms with melancholic melodies and a pervasive, atmospheric mood."</em> Only the noise seed differs between candidates.</p>
+  <div class="audio-pair">
+    <div class="audio-card">
+      <div class="audio-label">N=1 (single sample, c0)</div>
+      <audio controls preload="metadata" src="assets/mode1_p75_n1.wav"></audio>
+      <div class="audio-reward">TuneJury reward: +0.05</div>
+    </div>
+    <div class="audio-card">
+      <div class="audio-label">Best-of-16 (TuneJury-selected, c6)</div>
+      <audio controls preload="metadata" src="assets/mode1_p75_top.wav"></audio>
+      <div class="audio-reward">TuneJury reward: +1.71 (Δ +1.66)</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:1.2rem;">Mode 2: DITTO latent optimization (TangoFlux)</h3>
+  <p style="font-size:0.88rem;color:#515154;">SDD-100 prompt 0: <em>"A melancholic rap piece driven by a steady drummachine beat, layered with subtle synth pads and a sparse electric guitar."</em> Same backbone, same prompt; only the initial noise latent is optimized against the negative TuneJury reward (5 outer iterations, 8 inner steps, lr 0.05).</p>
+  <div class="audio-pair">
+    <div class="audio-card">
+      <div class="audio-label">Baseline (N=1, no optimization)</div>
+      <audio controls preload="metadata" src="assets/mode2_tangoflux_p0_baseline.wav"></audio>
+      <div class="audio-reward">TuneJury reward: −1.11</div>
+    </div>
+    <div class="audio-card">
+      <div class="audio-label">DITTO-optimized (5 outer iter)</div>
+      <audio controls preload="metadata" src="assets/mode2_tangoflux_p0_ditto.wav"></audio>
+      <div class="audio-reward">TuneJury reward: +1.13 (Δ +2.24)</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:1.2rem;">Mode 3: expert-iteration post-training (FluxAudio-S)</h3>
+  <p style="font-size:0.88rem;color:#515154;">SDD-100 prompt 46: <em>"A fast garage track featuring an electric guitar, driven by raw energy and a loose, rhythmic feel."</em> Same backbone, same seed, same MeanAudio inference settings. Only the post-training (expert iteration on TuneJury's top-decile candidates) differs.</p>
+  <div class="audio-pair">
+    <div class="audio-card">
+      <div class="audio-label">Baseline FluxAudio-S</div>
+      <audio controls preload="metadata" src="assets/mode3_p46_baseline.wav"></audio>
+      <div class="audio-reward">TuneJury reward: −2.06</div>
+    </div>
+    <div class="audio-card">
+      <div class="audio-label">Post-trained (expert iteration)</div>
+      <audio controls preload="metadata" src="assets/mode3_p46_finetuned.wav"></audio>
+      <div class="audio-reward">TuneJury reward: −0.05 (Δ +2.00)</div>
+    </div>
+  </div>
+
+  <p style="margin-top:1rem;font-size:0.88rem;color:#515154;">More examples (all four Mode 1 backbones, two Mode 2 backbones, and top-3 Mode 3 prompts) in the <a href="https://huggingface.co/spaces/TuneJury/tune-jury-demo" target="_blank">listening review demo</a>.</p>
+</section>
+
+<section>
+  <h2>What is TuneJury?</h2>
+  <p>TuneJury is an <strong>open instance-level pairwise reward model</strong>
+    for text-to-music generation. It predicts a single music-preference scalar
+    from a (text, audio) input, trained on ~17.5K human-rated A vs. B preference
+    pairs (~22K total pool including validation and held-out test) from Music
+    Arena, MusicPrefs, AIME, and SongEval. No pseudo-label augmentation.</p>
+  <div class="stat-grid">
+    <div class="stat">
+      <div class="num">2.8 M</div>
+      <div class="label">Trainable parameters</div>
+    </div>
+    <div class="stat">
+      <div class="num">17.5 K</div>
+      <div class="label">Human-rated training pairs (~22K total pool)</div>
+    </div>
+    <div class="stat">
+      <div class="num">0.7086</div>
+      <div class="label">Pairwise accuracy on held-out test (ECE 0.0339)</div>
+    </div>
+    <div class="stat">
+      <div class="num">10 min</div>
+      <div class="label">Full training on a single RTX A5000</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Why TuneJury? Design comparison with prior music reward / quality scorers</h2>
+  <p>TuneJury and CMI-RM share the RankNet pairwise paradigm. They differ on every other axis (paper §1, Table 1; T=text, L=lyrics, R=reference audio, A=candidate audio).</p>
+  <div style="overflow-x:auto;margin-top:0.5rem;-webkit-overflow-scrolling:touch;"><table style="width:100%;min-width:560px;border-collapse:collapse;font-size:0.88rem;font-variant-numeric:tabular-nums;">
+    <thead>
+      <tr style="background:#f0f0f2;text-align:left;">
+        <th style="padding:0.5rem 0.7rem;border-bottom:1px solid #d2d2d7;">Model</th>
+        <th style="padding:0.5rem 0.7rem;border-bottom:1px solid #d2d2d7;">Framework</th>
+        <th style="padding:0.5rem 0.7rem;border-bottom:1px solid #d2d2d7;">Input</th>
+        <th style="padding:0.5rem 0.7rem;border-bottom:1px solid #d2d2d7;">Output</th>
+        <th style="padding:0.5rem 0.7rem;border-bottom:1px solid #d2d2d7;">Supervision</th>
+      </tr>
+    </thead>
+    <tbody><tr><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);"><strong>TuneJury (ours)</strong></td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">RankNet pairwise</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">TA</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">1-d scalar</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">~17.5K human-rated pairs</td></tr><tr><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">CMI-RM</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">RankNet pairwise</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">TLRA</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">2-d (align, qual)</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">~6.6K human + ~110K pseudo</td></tr><tr><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">SongEval-RM</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">MOS regression</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">A</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">5-d aesthetic</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">SongEval 5-axis MOS</td></tr><tr><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">Audiobox-Aesthetics</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">MOS regression</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">A</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">4-d aesthetic</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">Audiobox MOS</td></tr><tr><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">MuQ-Eval</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">MOS regression</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">A</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">2-d (align, qual)</td><td style="padding:0.45rem 0.7rem;border-bottom:1px solid rgba(0,0,0,0.06);">MusicEval per-clip MOS</td></tr><tr><td style="padding:0.45rem 0.7rem;">PAM score</td><td style="padding:0.45rem 0.7rem;">Zero-shot audio-LM</td><td style="padding:0.45rem 0.7rem;">TA</td><td style="padding:0.45rem 0.7rem;">1-d scalar</td><td style="padding:0.45rem 0.7rem;">zero-shot</td></tr></tbody>
+  </table></div>
+  <p style="margin-top:0.6rem;font-size:0.88rem;color:#515154;">On the OOD PAM and CMI-RewardBench Music Arena splits, TuneJury stays within 0.06 SRCC and 2 pp pairwise accuracy of the pseudo-augmented CMI-RM, despite 10× fewer head parameters and no pseudo-label augmentation.</p>
+</section>
+
+<section>
+  <h2>Architecture</h2>
+  <img src="assets/tunejury_arch.png" alt="TuneJury architecture diagram" style="width:100%;border:1px solid #e5e5e7;border-radius:8px;">
+  <p style="margin-top:0.7rem;">Single MLP head over a frozen encoder stack, trained with the shared-weight pairwise logistic loss <code>L = −log σ(s(A) − s(B))</code>. Two encoder instantiations are released:</p>
+  <ul style="margin:0.4rem 0 0.6rem 1.2rem;font-size:0.92rem;color:#2c2c2e;">
+    <li><strong>CLAP+MERT</strong> (the released checkpoint that backs every paper number): frozen LAION-CLAP-Music (512-d audio + 512-d text) + MERT-v1-330M (1024-d audio) → 2,048-d input → MLP head <code>[1024, 512, 256, 128]</code> → 1-d reward (<strong>~2.8M trainable parameters</strong>).</li>
+    <li><strong>MuQ-MuLan</strong> (auxiliary encoder-swap variant): frozen MuQ-MuLan-large (1,024-d joint music-text embedding) → MLP head <code>[512, 256, 128, 64]</code> → 1-d reward. Used for the encoder-swap probe in paper §A.D (matches or beats CLAP+MERT on 4 of 5 OOD axes at half the input dimensionality).</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Three downstream applications</h2>
+  <img src="assets/modes_pipeline.png" alt="Three downstream applications: Mode 1 best-of-N selection, Mode 2 DITTO latent optimization, Mode 3 expert-iteration post-training" style="width:100%;border:1px solid #e5e5e7;border-radius:8px;margin-bottom:0.8rem;">
+  <p style="font-size:0.88rem;color:#515154;margin-bottom:0.8rem;">All three downstream applications share the same frozen TuneJury reward signal (blue). Mode 1 ranks frozen-backbone candidates by reward (gray = frozen). Mode 2 backpropagates reward into the noise latents at inference. Mode 3 fine-tunes the backbone (red = trainable) on its own top-reward decile.</p>
+  <p>The same frozen TuneJury reward signal drives three downstream applications
+    with no further preference labeling:</p>
+  <p><span class="pill">Mode 1</span> <strong>Inference-time best-of-N selection.</strong>
+    For each prompt, the backbone draws N candidate clips; the top-1 by
+    TuneJury reward is kept. Reward stays strictly monotone in N up to
+    N=32 on four frozen backbones (MusicGen-medium, MusicGen-large,
+    AudioLDM2-music, ACE-Step Turbo Continuous).</p>
+  <p><span class="pill">Mode 2</span> <strong>Inference-time latent optimization (DITTO-style).</strong>
+    Lifts mean reward by +0.25 on SAO-small (n=30, 19/30 prompts improved) and
+    +1.56 on TangoFlux (n=100, 100/100 improved). AudioLDM2-music omitted
+    (50-step backprop exceeds memory budget).</p>
+  <p><span class="pill">Mode 3</span> <strong>Expert-iteration post-training.</strong>
+    +0.416 mean reward lift on FluxAudio-S at LR=1e-5 (75/100 prompts improved),
+    mapping a reward-fidelity Pareto frontier across LR ∈ {1e-6, 5e-6, 1e-5}.</p>
+  <img src="assets/mode1_bon_sweep.png" alt="Mode 1 best-of-N sweep across N ∈ {1, 2, 4, 8, 16, 32} on four frozen open-weights backbones" style="width:100%;border:1px solid #e5e5e7;border-radius:8px;margin-top:0.7rem;">
+  <p style="margin-top:0.6rem;font-size:0.88rem;color:#515154;">Mode 1 best-of-N sweep on four frozen open-weights backbones. <strong>(a)</strong> TuneJury reward monotone through N=32. <strong>(b)</strong> CLAP score (text-audio cosine) rises in parallel through N=8 then plateaus. <strong>(c)</strong> FAD-CLAP against SDD-706 improves at N=4 on three of four backbones (paper §5.1, Figure 3).</p>
+</section>
+
+<section>
+  <h2>Anchor calibration for post-cutoff systems</h2>
+  <p>Bradley–Terry-based post-hoc per-system calibration. Recovers
+    ~5 pp pairwise agreement on post-cutoff Music Arena battles with
+    ~100 calibration pairs (~3 pp at K=30), at substantially better data
+    efficiency than retraining over the swept K-grid (anchor K=10 matches
+    retrain K=250, paper §A.D).</p>
+</section>
+
+<section>
+  <h2>Quick start</h2>
+  <pre>git clone https://github.com/yonghyunk1m/TuneJury.git
+cd TuneJury
+pip install -r requirements.txt
+
+python -c "
+from tunejury import Scorer
+scorer = Scorer.from_pretrained('checkpoints/tunejury.pt')
+print(scorer.score('your_audio.wav', prompt='your caption'))
+print(scorer.score('your_audio.wav', prompt=''))   # empty prompt -> OOD-safe (paper 4.2)
+"</pre>
+  <p>Full README, evaluation harness, and three-mode application code at
+    the <a href="https://github.com/yonghyunk1m/TuneJury">repo</a>.
+    Released under CC-BY-NC&nbsp;4.0 (tracking MERT-v1-330M's constraint).</p>
+</section>
+
+<section>
+  <h2>References</h2>
+  <p style="font-size:0.88rem;color:#515154;margin-bottom:0.6rem;">Works referenced by this project page. Full bibliography is in the paper.</p>
+
+  <p><strong>Frozen encoders.</strong>
+    Wu et al., <a href="https://arxiv.org/abs/2211.06687" target="_blank">LAION-CLAP</a> (ICASSP 2023) ·
+    Li et al., <a href="https://arxiv.org/abs/2306.00107" target="_blank">MERT</a> (ICLR 2024) ·
+    Zhu et al., <a href="https://arxiv.org/abs/2501.01108" target="_blank">MuQ</a> (arXiv 2025).</p>
+
+  <p><strong>Reward / quality models compared.</strong>
+    Ma et al., <a href="https://arxiv.org/abs/2603.00610" target="_blank">CMI-RewardBench / CMI-RM</a> (arXiv 2026) ·
+    Yao et al., <a href="https://arxiv.org/abs/2505.10793" target="_blank">SongEval / SongEval-RM</a> (arXiv 2025) ·
+    Tjandra et al., <a href="https://arxiv.org/abs/2502.05139" target="_blank">Audiobox-Aesthetics</a> (arXiv 2025) ·
+    Zhu and Li, <a href="https://arxiv.org/abs/2603.22677" target="_blank">MuQ-Eval</a> (arXiv 2026) ·
+    Deshmukh et al., <a href="https://arxiv.org/abs/2402.00282" target="_blank">PAM</a> (Interspeech 2024).</p>
+
+  <p><strong>Training data sources.</strong>
+    Kim et al., <a href="https://arxiv.org/abs/2507.20900" target="_blank">Music Arena</a> (NeurIPS Creative AI 2025) ·
+    Huang et al., <a href="https://arxiv.org/abs/2503.16669" target="_blank">MusicPrefs</a> (ISMIR 2025) ·
+    Grötschla et al., <a href="https://arxiv.org/abs/2506.19085" target="_blank">AIME</a> (ICASSP 2025) ·
+    Yao et al., <a href="https://arxiv.org/abs/2505.10793" target="_blank">SongEval</a> (arXiv 2025).</p>
+
+  <p><strong>Generation backbones (Mode 1 / 2 / 3).</strong>
+    Copet et al., <a href="https://arxiv.org/abs/2306.05284" target="_blank">MusicGen</a> (NeurIPS 2023) ·
+    Liu et al., <a href="https://arxiv.org/abs/2308.05734" target="_blank">AudioLDM 2</a> (TASLP 2024) ·
+    Gong et al., <a href="https://arxiv.org/abs/2506.00045" target="_blank">ACE-Step</a> (arXiv 2025) ·
+    Novack et al., <a href="https://arxiv.org/abs/2505.08175" target="_blank">Stable Audio Open Small (SAO-small)</a> (arXiv 2025) ·
+    Hung et al., <a href="https://arxiv.org/abs/2412.21037" target="_blank">TangoFlux</a> (ICLR 2026) ·
+    Li et al., <a href="https://arxiv.org/abs/2508.06098" target="_blank">MeanAudio / FluxAudio-S</a> (arXiv 2025).</p>
+
+  <p><strong>Open-license reward-score collections.</strong>
+    Bogdanov et al., <a href="https://github.com/MTG/mtg-jamendo-dataset" target="_blank">MTG-Jamendo</a> (ML4MD@ICML 2019) ·
+    Defferrard et al., <a href="https://arxiv.org/abs/1612.01840" target="_blank">FMA</a> (ISMIR 2017) ·
+    Law et al., <a href="https://mirg.city.ac.uk/codeapps/the-magnatagatune-dataset" target="_blank">MagnaTagATune</a> (ISMIR 2009) ·
+    Humphrey et al., <a href="https://github.com/cosmir/openmic-2018" target="_blank">OpenMIC-2018</a> (ISMIR 2018) ·
+    Agostinelli et al., <a href="https://arxiv.org/abs/2301.11325" target="_blank">MusicLM / MusicCaps</a> (arXiv 2023) ·
+    Melechovsky et al., <a href="https://arxiv.org/abs/2406.02255" target="_blank">MidiCaps</a> (ISMIR 2024) ·
+    Manco et al., <a href="https://arxiv.org/abs/2311.10057" target="_blank">Song Describer Dataset (SDD)</a> (ML4Audio@NeurIPS 2023).</p>
+
+  <p><strong>Methods.</strong>
+    Burges et al., <a href="https://www.microsoft.com/en-us/research/publication/learning-to-rank-using-gradient-descent/" target="_blank">RankNet</a> (ICML 2005) ·
+    Novack et al., <a href="https://arxiv.org/abs/2401.12179" target="_blank">DITTO</a> (ICML 2024) ·
+    Anthony et al., <a href="https://arxiv.org/abs/1705.08439" target="_blank">Expert Iteration</a> (NeurIPS 2017) ·
+    Singh et al., <a href="https://arxiv.org/abs/2312.06585" target="_blank">ReST<sup>EM</sup></a> (TMLR 2024) ·
+    Bradley &amp; Terry, <a href="https://www.jstor.org/stable/2334029" target="_blank">Bradley–Terry</a> (Biometrika 1952) ·
+    Gao et al., <a href="https://arxiv.org/abs/2210.10760" target="_blank">Scaling laws for reward-model overoptimization</a> (ICML 2023).</p>
+
+  <p><strong>Side metrics.</strong>
+    Kilgour et al., <a href="https://arxiv.org/abs/1812.08466" target="_blank">FAD</a> (Interspeech 2019) ·
+    Gui et al., <a href="https://arxiv.org/abs/2311.01616" target="_blank">FAD-X encoder variants</a> (ICASSP 2024) ·
+    Huang et al., <a href="https://arxiv.org/abs/2503.16669" target="_blank">MAD (MAUVE-Audio)</a> (ISMIR 2025) ·
+    Guo et al., <a href="https://arxiv.org/abs/1706.04599" target="_blank">Calibration / ECE</a> (ICML 2017).</p>
+</section>
+
+<section>
+  <h2>Citation</h2>
+  <pre>@misc{tunejury2026,
+  title         = {TuneJury: An Open Metric for Improving Music Generation Preference Alignment},
+  author        = {Kim, Yonghyun and Lee, Junwon and Xia, Haiwen and Ma, Yinghao and Koo, Junghyun and Saito, Koichi and Mitsufuji, Yuki and Donahue, Chris},
+  year          = {2026},
+  eprint        = {2606.17006},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.SD},
+  url           = {https://arxiv.org/abs/2606.17006},
+}</pre>
+</section>
+
+<section>
+  <h2>Acknowledgments</h2>
+  <p>We thank the maintainers of LAION-CLAP, MERT-v1-330M, and MuQ-MuLan-large for releasing their pretrained encoders; the authors of Music Arena, MusicPrefs, AIME, and SongEval for the open preference and aesthetic-rating sources; and the developers of the backbone audio generators (MusicGen, AudioLDM2-music, ACE-Step Turbo Continuous, Stable Audio Open-small, TangoFlux, FluxAudio-S) used in the Mode 1–3 demonstrations.</p>
+</section>
+
+<footer>
+  TuneJury · arXiv preprint 2026 · CC-BY-NC 4.0
+</footer>
+
+</div>
+</body>
+</html>

@@ -2,10 +2,10 @@
 
 The default :class:`tunejury.Scorer` loads audio from disk and is not
 differentiable end-to-end. ``DifferentiableScorer`` instead accepts a
-waveform tensor and lets gradients flow through MERT-v1-330M back to
-the input. LAION-CLAP audio is detached for numpy interop, so only
-the MERT path carries gradient. The TuneJury MLP head and the MERT
-body are kept on-graph but with all parameters frozen -- only the
+waveform tensor and lets gradients flow through both the LAION-CLAP
+audio path and MERT-v1-330M back to the input (both use the tensor
+path with ``use_tensor=True``). The TuneJury MLP head and both encoder
+bodies are kept on-graph but with all parameters frozen -- only the
 input waveform is updated by DITTO.
 
 Example

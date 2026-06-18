@@ -33,7 +33,7 @@ The MuQ-Eval baseline runner needs three external resources:
 
 | Resource | Where to get it |
 | --- | --- |
-| CMI-RewardBench bench root (`all_test.jsonl` + audio subdirs) | The CMI-RewardBench release at https://github.com/cmi-rewardbench/cmi-rewardbench (we used the directory layout described in their README; the script reads `<bench_root>/all_test.jsonl` and resolves every `audio-path` and `audio2` field relative to `<bench_root>`). |
+| CMI-RewardBench bench root (`all_test.jsonl` + audio subdirs) | The CMI-RewardBench release at https://github.com/Haiwen-Xia/CMI-RewardBench (we used the directory layout described in their README; the script reads `<bench_root>/all_test.jsonl` and resolves every `audio-path` and `audio2` field relative to `<bench_root>`). |
 | MuQ-Eval source code (model definitions) | `git clone https://github.com/dgtql/MuQ-Eval.git <muqeval_repo>` happens automatically the first time you pass `--reinfer`. |
 | MuQ-Eval-A1 trained weights | `pip install huggingface_hub` and the script auto-downloads `zhudi2825/MuQ-Eval-A1` (`config.yaml` + `model_state_dict.pt`). |
 

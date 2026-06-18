@@ -11,10 +11,7 @@ per-seed accuracy lists, matching the schema of `results/ood_repro.json`
 This is the "retraining (R)" row in paper §A.D Table `ood_scaling`.
 
 Concat order matches the released-ckpt eval path: [clap_audio, mert_audio,
-text_emb]. The previous prototype K-sweep was lost together with the
-script that produced `music-ranknet/results/ood_scaling_results.json`
-(2026-05-21 02:11, before this polished script's sibling
-`run_experiment.py` was committed at 02:26).
+text_emb].
 """
 from __future__ import annotations
 

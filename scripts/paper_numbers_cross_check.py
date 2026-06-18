@@ -256,7 +256,7 @@ def main():
          lambda: check_vocal_probe(args.features_root, 0.441, 2948, 3172)),
         ("§A.F FMA decile bottom -1.413 / top +0.084 / Spearman +0.285",
          lambda: check_fma_decile(
-             # Prefer rescored CSV (post Scorer.score bugfix) if present.
+             # Prefer rescored CSV if present.
              os.path.join(
                  args.release_scores,
                  "fma_large_scores_rescored.csv"

@@ -19,33 +19,8 @@ Four-stage probe on CMI-RewardBench PAM (n=500) and MusicEval (n=413) per-axis M
     (iv)  Data scaling: 5%, 10%, 25%, 50%, 75%, 100% of stratified train pool
           per 5 seeds, partial-SRCC scaling curve.
 
-Reproduces (paper Section 3, Decomposition probe paragraph + Figure):
-
-    Stage (i) [single-seed, our measurements]:
-        PAM:       composite musicality SRCC +0.59, alignment SRCC +0.26
-                   audio-only musicality   +0.67, alignment       +0.33
-                   delta (post-hoc) vs PAM alignment MOS:  SRCC  -0.30
-        MusicEval: composite musicality SRCC +0.67, alignment SRCC +0.47
-                   audio-only musicality   +0.66, alignment       +0.48
-                   delta (post-hoc) vs MusicEval alignment MOS: SRCC +0.02
-
-    Stage (ii) [cross-distribution supervised]:
-        PAM -> MusicEval alignment SRCC:  +0.18
-        MusicEval -> PAM alignment SRCC:  -0.41
-
-    Stage (iii) [stratified combined, 20-seed]:
-        alignment SRCC mean +0.630  std 0.047  95% CI [+0.608, +0.651]
-        partial   SRCC mean +0.305  std 0.074  95% CI [+0.271, +0.340]
-        residual  SRCC mean +0.444  std 0.058  95% CI [+0.417, +0.472]
-
-    Stage (iv) [scaling, 5-seed]:
-        partial SRCC at n=36 (5%)   mean +0.085 (95% CI ±0.084)
-        partial SRCC at n=72 (10%)  mean +0.123 (95% CI ±0.079)
-        partial SRCC at n=182 (25%) mean +0.185 (95% CI ±0.071)
-        partial SRCC at n=364 (50%) mean +0.226 (95% CI ±0.062)
-        partial SRCC at n=546 (75%) mean +0.283 (95% CI ±0.063)
-        partial SRCC at n=728 (100%) mean +0.318 (95% CI ±0.065)
-        (monotone ascent, no plateau)
+Reproduces the Section 3 decomposition-probe paragraph and figure (the
+four stages above; per-stage SRCC values are reported in the paper).
 
 External data dependency
 ------------------------

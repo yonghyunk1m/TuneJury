@@ -1,4 +1,4 @@
-"""Train the six leave-one-dataset-out + two leave-two-out ablation checkpoints.
+"""Train the four leave-one-dataset-out + two leave-two-out ablation checkpoints.
 
 Paper anchor: Section 4.2 (Training-mix breadth) + Appendix D (Table training_mix).
 

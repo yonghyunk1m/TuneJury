@@ -47,7 +47,7 @@ The Song Describer Dataset is a captioned subset of MTG-Jamendo: all 706 of its 
 
 Every score is one deterministic `tunejury` scorer call per clip, with the text branch fed a 512-d zero vector (the empty-prompt release protocol of paper §3 / §4.2). The two frozen audio encoders see the clip as follows:
 
-* **CLAP audio branch** encodes the centre 10-second window at 48 kHz mono (clips of 10 s or less are encoded whole). The window is fixed at the centre, so the score is reproducible.
+* **CLAP audio branch** encodes the center 10-second window at 48 kHz mono (clips of 10 s or less are encoded whole). The window is fixed at the center, so the score is reproducible.
 * **MERT audio branch** encodes the full track at 24 kHz mono and mean-pools the frame embeddings. Tracks longer than 300 s are encoded in consecutive 300 s segments whose frame means are length-weighted averaged, which bounds peak memory without changing the full-track mean.
 
 `scripts/score_release_collection.py` is the exact code; `scripts/verify_release_scores.py` re-scores a random sample and confirms it reproduces the CSV to floating-point tolerance.

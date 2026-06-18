@@ -1,7 +1,7 @@
 """Per-system reward ranking validation on bench-clean test splits.
 
 Reproduces Appendix F (``Per-System Reward Ranking on Held-Out Test Splits'')
-of the paper. For each held-out test pair on the three model-labelled
+of the paper. For each held-out test pair on the three model-labeled
 training datasets, we score the two clips with the released TuneJury
 head over cached LAION-CLAP + MERT-v1-330M features, aggregate by
 source system, and compute Spearman rank correlation between the

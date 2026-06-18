@@ -95,7 +95,7 @@ def main():
           flush=True)
 
     # Paper protocol: mauve default num_buckets='auto' (resolves to max(2, n//10) =
-    # 10 for n=100, ~73 for n=30) with seed=42 for cross-cell reproducibility. The
+    # 10 for n=100, 3 for n=30) with seed=42 for cross-cell reproducibility. The
     # equivalent num_buckets=10 only matches 'auto' for the n=100 Mode 3 / TangoFlux
     # cells; SAO (n=30) requires 'auto' to reproduce the paper +0.500.
     mauve_base = mauve.compute_mauve(

@@ -59,7 +59,7 @@ assert n > 0, "data/processed_features/ is empty; see this README"
 PY
 ```
 
-A correctly populated directory holds 21,800 blobs (17,554 train +
+A correctly populated directory holds 24,935 feature blobs; the train/val/test splits cover 21,800 (17,554 train +
 2,111 val + 2,135 test). `tunejury/dataset.py` raises
 a `FileNotFoundError` with a pointer to this README if every split id
 resolves to a missing file, so a fresh clone will fail loudly rather

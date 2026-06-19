@@ -20,8 +20,8 @@
 <br/>
 
 [![arXiv](https://img.shields.io/badge/arXiv-2606.17006-b31b1b.svg?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2606.17006)
-[![Project page](https://img.shields.io/badge/🌐_Project_page-yonghyunk1m.github.io%2FTuneJury-0071e3.svg)](https://yonghyunk1m.github.io/TuneJury/)
-[![Demos](https://img.shields.io/badge/🤗_Demos-TuneJury-FFD21E.svg)](https://huggingface.co/spaces/TuneJury/landing)
+[![Project page](https://img.shields.io/badge/🌐_Project_page-TuneJury-0071e3.svg)](https://huggingface.co/spaces/TuneJury/landing)
+[![Hugging Face](https://img.shields.io/badge/🤗_Hugging_Face-TuneJury-FFD21E.svg)](https://huggingface.co/TuneJury)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 
